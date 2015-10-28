@@ -1,16 +1,16 @@
 /* In this repo your job is to write functions to make each function call work properly.
-Below is a sample problem 
+Below is a sample problem
 
   //code here for sayHi
 
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay);
    });
-   
 
-and what you should write is the sayHi function that makes the code above work, 
-    
-    
+
+and what you should write is the sayHi function that makes the code above work,
+
+
    var sayHi = function(str, cb){
     cb(str);
    }
@@ -18,20 +18,23 @@ and what you should write is the sayHi function that makes the code above work,
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay); //should alert ('Hi Katie')'
    });
-    
-    
+
+
 */
 
 
 
   //Code Here for first
-  
+
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
 first(names, function(firstName){
   console.log('The first name in names is ' + firstName)
 });
 
+function first(n, func) {
+  func(n[0]);
+}
 
 
 /* NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM */
@@ -46,7 +49,9 @@ last(names, function(lastName){
   console.log('The last name in names is ' + lastName);
 });
 
-
+function last(n, func) {
+  func(n[n.length-1]);
+}
 
 
 
@@ -63,7 +68,10 @@ multiply(4, 3, function(answer){
   console.log('The answer is ' + answer); //should console.log 12
 })
 
-
+function multiply(n1, n2, func) {
+  var a = n1 * n2;
+  func(a);
+}
 
 
 
@@ -84,7 +92,13 @@ contains(names, 'Colt', function(result){
   }
 });
 
-
+function contains(nArr, name, func) {
+  for (var i = 0; i < nArr.length; i++) {
+    if (nArr[i] === name) {
+      return func(true);
+    }
+  }
+}
 
 
 
@@ -100,7 +114,17 @@ uniq(names, function(uniqArr){
   console.log('The new names array with all the duplicate items removed is ', uniqArr);
 });
 
-
+function uniq(nArr, func) {
+  for (var i = 0; i < nArr.length; i++) {
+    for (var n = i+1; n < nArr.length; n++) {
+      if (nArr[i] === nArr[n]) {
+        nArr.splice(i, 1);
+        i--;
+      }
+    }
+  }
+  return func(nArr);
+}
 
 
 
@@ -116,6 +140,11 @@ each(names, function(item, indice){
   console.log('The item in the ' + indice + ' position is ' + item)
 });
 
+function each(nArr, func) {
+  for (var i = 0; i < nArr.length; i++) {
+    func(nArr[i], i);
+  }
+}
 
 
 
@@ -127,6 +156,14 @@ each(names, function(item, indice){
 
 
  //code here for getUserById
+function getUserById (uArr, id, cb) {
+  for (var i = 0; i < uArr.length; i++) {
+    if (uArr[i].id === id) {
+      return cb(uArr[i]);
+    }
+  }
+}
+
 
 var users = [
   {
@@ -150,5 +187,5 @@ var users = [
 ];
 
 getUserById(users, '16t', function(user){
-  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
+  console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address);
 });
